@@ -2,15 +2,12 @@
 extends Sprite
 
 const ASTEROIDS_DENISTY = 0.2
-
-const MAX_SCREEN_X = 1024
-const MAX_SCREEN_Y = 768
-
-var GAME_SPEED = 100
+const STAR_DENISTY = 0.5
 
 var z_index = 0.1
 var skin = 0
 onready var pos = self.get_pos()
+onready var second_layer = self.get_node("second_layer")
 
 func _ready():
     randomize()
@@ -18,26 +15,31 @@ func _ready():
     self.random_start_pos()
 
 func random_start_pos():
-    self.set_pos(Vector2(int(randi() % MAX_SCREEN_X), int(randi() % MAX_SCREEN_Y)))
+    self.set_pos(Vector2(int(randi() % int(OS.get_window_size().x)), int(randi() % int(OS.get_window_size().y))))
 
 
 func restart_pos():
-    self.set_pos(Vector2(int(randi() % MAX_SCREEN_X), 0))
+    self.set_pos(Vector2(int(randi() % int(OS.get_window_size().x)), 0))
 
 func random_skin():
-    if ( randi() % 10 ) <= ASTEROIDS_DENISTY:
-        skin = 3 + int(randi() % 5)
+    if ( randi() % 10 ) <= STAR_DENISTY:
+        skin = 0
     else:
-        skin = int(randi() % 3)
+        if ( randi() % 10 ) <= ASTEROIDS_DENISTY:
+            skin = 3 + int(randi() % 5)
+        else:
+            skin = 1 + int(randi() % 2)
+
     self.set_frame(skin)
+    self.second_layer.set_frame(skin)
     z_index = (skin + 1) * 0.1
     self.set_z(z_index)
 
 func move(delta):
     pos = self.get_pos()
-    pos.y = pos.y + ( GAME_SPEED * delta * z_index )
+    pos.y = pos.y + ( Globals.get("GAME_SPEED") * delta * z_index )
 
-    if pos.y > MAX_SCREEN_Y:
+    if pos.y > OS.get_window_size().y:
         self.restart_pos()
     else:
         self.set_pos(pos)
