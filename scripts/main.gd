@@ -5,7 +5,7 @@ const RIGHT = 1
 const LEFT = 0
 const UP = 2
 const DOWN = 3
-const GEN_COSMOS = 128
+const GEN_COSMOS = 256
 const PLAYER_START_POS = [Vector2(256, 700), Vector2(767, 700)]
 const MAX_PLAYERS = 2
 var players = [null, null]
@@ -15,7 +15,7 @@ var player_template = preload('/entities/player_template.tscn')
 var cosmos_template = preload('/entities/cosmos_template.tscn')
 
 func _ready():
-	Globals.set("GAME_SPEED", 100)
+	Globals.set("GAME_SPEED", 10)
 
 	for i in range(0, GEN_COSMOS):
 		self.map.append(self.cosmos_template.instance())

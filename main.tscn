@@ -40,4 +40,6 @@ size_flags/vertical = 2
 
 [node name="logo" parent="HUD/center" instance=ExtResource( 2 )]
 
+z/z = 1000
+
 

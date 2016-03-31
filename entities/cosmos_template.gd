@@ -1,8 +1,8 @@
 
 extends Sprite
 
-const ASTEROIDS_DENISTY = 0.2
-const STAR_DENISTY = 0.5
+const ASTEROIDS_DENISTY = 2
+const STAR_DENISTY = 7
 
 var z_index = 0.1
 var skin = 0
@@ -32,12 +32,12 @@ func random_skin():
 
     self.set_frame(skin)
     self.second_layer.set_frame(skin)
-    z_index = (skin + 1) * 0.1
+    z_index = 12 + (skin * 32) + int( randi() % 24)
     self.set_z(z_index)
 
 func move(delta):
     pos = self.get_pos()
-    pos.y = pos.y + ( Globals.get("GAME_SPEED") * delta * z_index )
+    pos.y = pos.y + ( Globals.get("GAME_SPEED") * delta * z_index ) * 0.1
 
     if pos.y > OS.get_window_size().y:
         self.restart_pos()

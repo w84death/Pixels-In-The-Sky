@@ -10,7 +10,7 @@ const SPEED_X = 128
 const SPEED_Y = 64
 const TARGET_SPEED = 24
 onready var target = self.get_pos()
-const GAME_SPEED_INC = 24
+const GAME_SPEED_INC = 2
 const PLAYER_AREA_MARGINS = 48
 var frame_up = 4
 var frame_move = 5
@@ -29,10 +29,10 @@ func move_ship(direction):
 		self.target.x = pos.x + TARGET_SPEED
 	if direction == UP and pos.y > PLAYER_AREA_MARGINS:
 		self.target.y = pos.y - TARGET_SPEED
-		Globals.set("GAME_SPEED", Globals.get("GAME_SPEED") + GAME_SPEED_INC)
+		Globals.set("GAME_SPEED", (OS.get_window_size().y - pos.y) * 0.1 )
 	if direction == DOWN and pos.y < OS.get_window_size().y - PLAYER_AREA_MARGINS:
 		self.target.y = pos.y + TARGET_SPEED
-		Globals.set("GAME_SPEED", Globals.get("GAME_SPEED") - GAME_SPEED_INC)
+		Globals.set("GAME_SPEED", (OS.get_window_size().y - pos.y) * 0.1 )
 
 func move(delta):
 	var pos = self.get_pos()
